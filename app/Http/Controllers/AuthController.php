@@ -2,15 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\AuthControllerInterface;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller
+class AuthController extends Controller implements AuthControllerInterface
 {
-    
-    
-    public function register(Request $request) {
+    /**
+     * Register a new user and return an authentication token.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function register(Request $request): JsonResponse
+    {
        
         $validated = $request->validate([
             'name' => 'required|string',
@@ -28,7 +35,14 @@ class AuthController extends Controller
         return response()->json(['token' => $user->createToken('token')->plainTextToken]);
     }
 
-    public function login(Request $request) {
+    /**
+     * Log in a user and return an authentication token.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function login(Request $request): JsonResponse
+    {
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json(['message' => 'Invalid credentials'], 401);
         }

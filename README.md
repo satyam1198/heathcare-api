@@ -7,7 +7,7 @@ This guide provides a clear and concise overview to set up and use the Healthcar
 ## 1. Clone the Project
 
 ```bash
-git clone https://github.com/your-username/healthcare-api.git
+git clone https://github.com/satyam1198/heathcare-api.git
 cd healthcare-api
 ```
 
